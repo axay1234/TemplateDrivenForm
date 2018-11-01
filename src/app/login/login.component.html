@@ -1,0 +1,80 @@
+<h4>NgSwitch</h4><ul *ngFor="let person of people"
+    [ngSwitch]="person.country"> 
+
+  <li *ngSwitchCase="'INDIA'" 
+      class="text-success">{{ person.name }} ({{ person.country }})
+  </li>
+  <li *ngSwitchCase="'USA'"
+      class="text-primary">{{ person.name }} ({{ person.country }})
+  </li>
+  <li *ngSwitchCase="'CANADA'"
+      class="text-danger">{{ person.name }} ({{ person.country }})
+  </li>
+  <li *ngSwitchDefault 
+      class="text-warning">{{ person.name }} ({{ person.country }})
+  </li>
+</ul>
+})
+<br>
+<i *ngIf="showTotalCount" class="float-left">
+    Total Menu Items : {{dishes.length}}
+</i>
+<menu-cart [countOfItemsInCart] = "cartCount" #menuCartRef  [totalPrice] = "totalPrice"
+></menu-cart>
+<br>
+<br>
+<br>
+
+<ul class="list-group">
+    <li *ngFor="let dish of dishes; let inx = index">
+         <login-item [myDish]="dish" 
+                    (onDishAdd)="onAddingOfDish(dish)">
+         {{inx}} 
+           <!-- This is static text of a dish -->
+         </login-item>
+    </li>
+</ul>
+
+    <!-- <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let dish of dishes">
+        <th scope="row">1</th>
+        <td>{{dish.name}}</td>
+        <td>{{dish.desc}}</td>
+        <td>{{dish.price}}</td>
+      </tr>
+    </tbody>
+  </table> -->
+  <div>
+  <button type="button" class="btn btn-success float-right" (click)="enableMenuForm()">Add New Dish</button>
+</div>
+  <br>
+  <br>
+  <hr>
+  <div class="container" *ngIf="showAddMenuform">
+        <button type="button" class="btn btn-danger float-right" (click)="disableForm()" >X</button>
+        <form>
+            <div class="form-group row">
+                <label for="name">Name</label>
+                <input type="name" class="form-control" id="name"  placeholder="Enter Name" #dishName>
+            </div>
+            <div class="form-group row">
+                <label for="description">Description</label>
+                <input type="text" class="form-control" id="desc" placeholder="Description" #dishDesc>
+            </div>
+            <div class="form-group row">
+                    <label for="price">Price</label>
+                    <input type="number" step="0.01" class="form-control" id="price" #dishPrice>
+                </div>
+            <button type="button" class="btn btn-primary float-right" 
+            (click)="addNewMenuItem(dishName.value,dishDesc.value,dishPrice.value)">Add Dish
+            </button>
+        </form>
+    </div>

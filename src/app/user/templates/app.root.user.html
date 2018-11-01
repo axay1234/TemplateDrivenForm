@@ -1,0 +1,90 @@
+  <div class="float-right">
+      <button class="btn btn-success" (click)="enableorDisableNewUserForm()">&nbsp;&nbsp;Add New User&nbsp;&nbsp;
+      </button> 
+
+  </div>
+  <div>
+    <div class="row centered-form">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div *ngIf="enableAddUserForm">
+            <button class="btn btn-danger float-right" (click)="enableorDisableNewUserForm()">X
+            </button>
+              <div class="card-body">
+                  <form (ngSubmit)="addNewUser(newUserAddFormRef)" #newUserAddFormRef="ngForm">
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        
+                          <input type="text" name="first_name" class="form-control" 
+                          [(ngModel)]="newUser.firstName" required
+                          id="first_name" placeholder="First Name"   #fname="ngModel">
+
+                       </div>
+                       <div class="form-group col-md-6">
+                        
+                          <input type="text" name="last_name" class="form-control" 
+                          [(ngModel)]="newUser.lastName"
+                          id="last_name" placeholder="Last Name" #nameLast="ngModel">
+                       </div>
+                      </div>
+                      
+                       <div class="form-group">
+                        
+                          <input type="email" name="email" class="form-control" email 
+                          [(ngModel)]="newUser.email" required
+                          id="email" placeholder="Email Address " #emailId= "ngModel">
+                       </div>
+                       <span class="formError" *ngIf="emailId.invalid">Please enter valid Email ID..</span>
+                      <div class="form-group">
+                          
+                          <input type="password" name="password" class="form-control" 
+                          [(ngModel)]="newUser.password" userPassValidator  required
+                          id="password" pattern="" placeholder="Password" #password="ngModel">
+                             <div *ngIf="password.invalid &&(password.touched || password.dirty)">
+                               <div *ngIf="password.errors.required">
+                                  Password is required
+                               </div>
+                               <div *ngIf="password.errors.passwordError">
+                                Password must be atleast 9 characters
+                               </div>
+                             </div>
+                      </div>
+                    
+                      
+                        <button type="submit" value="Register"  class="btn btn-primary" [disabled]="!newUserAddFormRef.valid">Submit</button>
+                   
+                    
+                        </form>
+                  </div>
+           </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">UserName</th>
+        <th scope="col">FirstName</th>
+        <th scope="col">LastName</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone</th>
+      
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <th scope="row">{{user.username}}</th>
+        <td>{{user.firstName}}</td>
+        <td>{{user.lastName}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.phone}}</td>
+        <td><button class="btn btn-danger" (click)="deleteUser(user.id)">x</button>
+          &nbsp; &nbsp; &nbsp; &nbsp;
+          <!-- <button class="btn btn-primary" (click)="updateUser(user.id)">&nbsp;Update&nbsp;</button> -->
+        </td>
+      </tr>
+    </tbody>
+  </table> 
